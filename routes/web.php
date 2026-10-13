@@ -2,13 +2,14 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ClienteController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return redirect()->route('clientes.index');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
@@ -36,5 +37,13 @@ Route::middleware(['auth', 'role:contador,supervisor,admin'])->group(function ()
     });
 });
 // terminación de rutas de los usuarios
+
+Route::middleware(['auth'])->group(function () {
+    // CRUD accesible para Admin y Supervisor (Alta, Editar, Baja)
+    Route::resource('clientes', ClienteController::class);
+
+    // Corrección aquí: Añadir "Route::" antes de post
+    Route::post('clientes/{cliente}/expedientes', [ClienteController::class, 'subirExpediente'])->name('clientes.expedientes.store');
+});
 
 require __DIR__.'/auth.php';

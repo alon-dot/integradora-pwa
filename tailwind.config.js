@@ -14,6 +14,13 @@ export default {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            colors: {
+                despacho: {
+                    navy: '#0B0F19',      // Azul marino profundo del logotipo
+                    gold: '#C5A059',      // Dorado ejecutivo/metálico
+                    goldHover: '#B08D4C', // Dorado para efectos hover
+                }
+            },
         },
     },
 
